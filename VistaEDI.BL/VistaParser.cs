@@ -12,7 +12,41 @@ namespace VistaEDI.BL
 {
     public class VistaParser
     {
-        public string ParseJson(string data)
+        //public string ParseJson(string data)
+        //{
+        //    try
+        //    {
+        //        string errorList = "";
+        //        string res;
+        //        var result = JsonConvert.DeserializeObject<List<ChemistryInfo>>(data);
+        //        int i = 1;
+        //        foreach (var item in result)
+        //        {                    
+        //            res = new ParserData().SaveItem(item);
+        //            if (res == "FAIL")
+        //                return "ERROR";                    
+
+        //            if (res != "")
+        //            {
+        //                //if (res.ToUpper().Trim() == "HEATNOEXISTS")
+        //                //{
+        //                //    errorList += "Record No." + i.ToString() + ":" + res + "; ";
+        //                //}
+        //                errorList += "Record No." + i.ToString() + ":" + res + "; ";
+        //                i++;
+                       
+        //            }
+                                  
+        //        }
+        //        return errorList;
+        //    }
+        //    catch(Exception ex)
+        //    {
+        //        return "ERROR";
+        //    }
+        //}
+
+        public string ParseJson(string data, char status)
         {
             try
             {
@@ -21,10 +55,10 @@ namespace VistaEDI.BL
                 var result = JsonConvert.DeserializeObject<List<ChemistryInfo>>(data);
                 int i = 1;
                 foreach (var item in result)
-                {                    
-                    res = new ParserData().SaveItem(item);
+                {
+                    res = new ParserData().SaveItem(item,status);
                     if (res == "FAIL")
-                        return "ERROR";                    
+                        return "ERROR";
 
                     if (res != "")
                     {
@@ -34,13 +68,13 @@ namespace VistaEDI.BL
                         //}
                         errorList += "Record No." + i.ToString() + ":" + res + "; ";
                         i++;
-                       
+
                     }
-                                  
+
                 }
                 return errorList;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return "ERROR";
             }

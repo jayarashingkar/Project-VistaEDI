@@ -11,7 +11,7 @@ namespace VistaEDI.Data
 {
     public class ParserData : DatabaseOperations
     {
-        public string SaveItem(ChemistryInfo data)
+        public string SaveItem(ChemistryInfo data, char status)
         {
             try
             {
@@ -22,9 +22,12 @@ namespace VistaEDI.Data
 
                 //TESTING
                 //SET STATUS AS '1' BY DEFAULT FOR THE FIRST TIME.
-                data.Status = '3';
+                // data.Status = '3';
+               // status = '1';
 
-                SQLParameters["Status"] = data.Status;
+                // SQLParameters["Status"] = data.Status;
+                SQLParameters["Status"] = status;
+
                 SQLParameters["ShipmentNumber"] = data.ShipmentNumber;
                 SQLParameters["ShipmentDate"] = data.ShipmentDate;
                 SQLParameters["HeatNumber"] = data.HeatNumber;

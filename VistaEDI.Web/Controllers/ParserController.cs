@@ -17,31 +17,41 @@ namespace JsonParser.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult Upload(HttpPostedFileBase file)
+        public ActionResult Upload(HttpPostedFileBase file, char status = '1')
         {
-            if (file != null && file.ContentLength > 0)
+            //char
+            //    status = '1';
+            if (status != '0')
             {
-                var fileName = Path.GetFileName(file.FileName);
-                BinaryReader b = new BinaryReader(file.InputStream);
-                byte[] binData = b.ReadBytes(file.ContentLength);
-                string result = System.Text.Encoding.UTF8.GetString(binData);
-                              
-               string message =  new VistaParser().ParseJson(result);
-
-                if ((message != null)&&(message != ""))
+                if (file != null && file.ContentLength > 0)
                 {
-                    message = "Deviations: " + message;
-                    ViewBag.Message = message;                    
-                }                   
+                    var fileName = Path.GetFileName(file.FileName);
+                    BinaryReader b = new BinaryReader(file.InputStream);
+                    byte[] binData = b.ReadBytes(file.ContentLength);
+                    string result = System.Text.Encoding.UTF8.GetString(binData);
+
+                    //   string message =  new VistaParser().ParseJson(result);
+                    string message = new VistaParser().ParseJson(result, status);
+
+
+                    if ((message != null) && (message != ""))
+                    {
+                        message = "Deviations: " + message;
+                        ViewBag.Message = message;
+                        ViewBag.Status = "Choose Status and file to Accept/Reject with deviation ";
+                    }
+                    else
+                        ViewBag.Message = "File parsed successfully";
+                }
                 else
-                    ViewBag.Message = "File parsed successfully";
+                {
+                    ViewBag.Message = "File not selected";
+                }
             }
-            else
-            {
-                ViewBag.Message = "File not selected";
-            }
-            
+           else
+                ViewBag.Message = "Upload Rejected";
             return View("Index");
         }
+
     }
 }
