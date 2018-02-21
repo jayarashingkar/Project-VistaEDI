@@ -20,6 +20,11 @@ namespace VistaEDI.Data
                 this.ConnectionString = ConfigurationManager.AppSettings["DBConnection"].ToString();
                 SQLParameters = new Dictionary<string, object>();
 
+                //TESTING
+                //SET STATUS AS '1' BY DEFAULT FOR THE FIRST TIME.
+                data.Status = '3';
+
+                SQLParameters["Status"] = data.Status;
                 SQLParameters["ShipmentNumber"] = data.ShipmentNumber;
                 SQLParameters["ShipmentDate"] = data.ShipmentDate;
                 SQLParameters["HeatNumber"] = data.HeatNumber;

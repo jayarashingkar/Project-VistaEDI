@@ -28,10 +28,10 @@ namespace JsonParser.Web.Controllers
                               
                string message =  new VistaParser().ParseJson(result);
 
-                if (message != null)
+                if ((message != null)&&(message != ""))
                 {
                     message = "Deviations: " + message;
-                    ViewBag.Message = message;
+                    ViewBag.Message = message;                    
                 }                   
                 else
                     ViewBag.Message = "File parsed successfully";
