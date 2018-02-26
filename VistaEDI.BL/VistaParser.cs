@@ -51,22 +51,25 @@ namespace VistaEDI.BL
             try
             {
                 string errorList = "";
-                string res;
+                //string res;
+                ResultViewModel res;
+
                 var result = JsonConvert.DeserializeObject<List<ChemistryInfo>>(data);
                 int i = 1;
                 foreach (var item in result)
                 {
                     res = new ParserData().SaveItem(item,status);
-                    if (res == "FAIL")
+                    if (res.Message == "FAIL")
                         return "ERROR";
 
-                    if (res != "")
+                    if (res.Message != "")
                     {
                         //if (res.ToUpper().Trim() == "HEATNOEXISTS")
                         //{
                         //    errorList += "Record No." + i.ToString() + ":" + res + "; ";
                         //}
-                        errorList += "Record No." + i.ToString() + ":" + res + "; ";
+                        //  errorList += "Record No." + i.ToString() + ":" + res + "; ";
+                        errorList += "Heat No." + res.HeatNo + ":" + res.Message + "; ";
                         i++;
 
                     }

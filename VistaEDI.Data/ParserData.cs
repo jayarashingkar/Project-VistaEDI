@@ -11,7 +11,7 @@ namespace VistaEDI.Data
 {
     public class ParserData : DatabaseOperations
     {
-        public string SaveItem(ChemistryInfo data, char status)
+        public ResultViewModel SaveItem(ChemistryInfo data, char status)
         {
             try
             {
@@ -20,12 +20,6 @@ namespace VistaEDI.Data
                 this.ConnectionString = ConfigurationManager.AppSettings["DBConnection"].ToString();
                 SQLParameters = new Dictionary<string, object>();
 
-                //TESTING
-                //SET STATUS AS '1' BY DEFAULT FOR THE FIRST TIME.
-                // data.Status = '3';
-               // status = '1';
-
-                // SQLParameters["Status"] = data.Status;
                 SQLParameters["Status"] = status;
 
                 SQLParameters["ShipmentNumber"] = data.ShipmentNumber;
@@ -57,19 +51,27 @@ namespace VistaEDI.Data
 
                 SQLParameters["Sc"] = data.Sc;
                 SQLParameters["Sr"] = data.Sr;
-                SQLParameters["TiZr"] = data.TiZr;
-                
+                SQLParameters["TiZr"] = data.TiZr;                                                                                                                                      
+
                 DataTable failList = Execute();
 
-                string stringList1 = "";
-                stringList1 = failList.Rows[0][0].ToString();
+                //string stringList1 = "";
+                //stringList1 = failList.Rows[0][0].ToString();
 
-                return stringList1;
+                ResultViewModel res = new ResultViewModel();
+                res.Message = failList.Rows[0][0].ToString();
+                res.HeatNo = failList.Rows[0][1].ToString();
+
+                //  return stringList1;
+                return res;
                               
             }
             catch (Exception ex)
-            {                
-                return "FAIL";
+            {
+                // return "FAIL";
+                ResultViewModel res = new ResultViewModel();
+                res.Message = "FAIL";
+                return res;
             }
             
         }

@@ -41,7 +41,7 @@ namespace JsonParser.Web.Controllers
                         ViewBag.Status = "Choose Status and file to Accept/Reject with deviation ";
                     }
                     else
-                        ViewBag.Message = "File parsed successfully";
+                        ViewBag.Message = "File successfully uploaded";
                 }
                 else
                 {
@@ -52,6 +52,5 @@ namespace JsonParser.Web.Controllers
                 ViewBag.Message = "Upload Rejected";
             return View("Index");
         }
-
     }
 }

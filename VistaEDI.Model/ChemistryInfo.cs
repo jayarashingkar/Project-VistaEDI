@@ -9,7 +9,7 @@ namespace VistaEDI.Model
 {
     public class ChemistryInfo
     {
-        public char Status { get; set; }
+     //   public char Status { get; set; }
         public int ShipmentNumber { get; set; }
         public DateTime ShipmentDate { get; set; }
         public string HeatNumber { get; set; }
