@@ -12,50 +12,14 @@ namespace VistaEDI.BL
 {
     public class VistaParser
     {
-        //public string ParseJson(string data)
-        //{
-        //    try
-        //    {
-        //        string errorList = "";
-        //        string res;
-        //        var result = JsonConvert.DeserializeObject<List<ChemistryInfo>>(data);
-        //        int i = 1;
-        //        foreach (var item in result)
-        //        {                    
-        //            res = new ParserData().SaveItem(item);
-        //            if (res == "FAIL")
-        //                return "ERROR";                    
-
-        //            if (res != "")
-        //            {
-        //                //if (res.ToUpper().Trim() == "HEATNOEXISTS")
-        //                //{
-        //                //    errorList += "Record No." + i.ToString() + ":" + res + "; ";
-        //                //}
-        //                errorList += "Record No." + i.ToString() + ":" + res + "; ";
-        //                i++;
-                       
-        //            }
-                                  
-        //        }
-        //        return errorList;
-        //    }
-        //    catch(Exception ex)
-        //    {
-        //        return "ERROR";
-        //    }
-        //}
-
         public string ParseJson(string data, char status)
         {
             try
             {
                 string errorList = "";
-                //string res;
                 ResultViewModel res;
-
+               
                 var result = JsonConvert.DeserializeObject<List<ChemistryInfo>>(data);
-                int i = 1;
                 foreach (var item in result)
                 {
                     res = new ParserData().SaveItem(item,status);
@@ -63,19 +27,13 @@ namespace VistaEDI.BL
                         return "ERROR";
 
                     if (res.Message != "")
-                    {
-                        //if (res.ToUpper().Trim() == "HEATNOEXISTS")
-                        //{
-                        //    errorList += "Record No." + i.ToString() + ":" + res + "; ";
-                        //}
-                        //  errorList += "Record No." + i.ToString() + ":" + res + "; ";
-                        errorList += "Heat No." + res.HeatNo + ":" + res.Message + "; ";
-                        i++;
-
+                    {                      
+                         errorList += "<br />"+ "Heat No." + res.HeatNo + ":" + res.Message + "; ";                        
                     }
 
                 }
                 return errorList;
+               
             }
             catch (Exception ex)
             {

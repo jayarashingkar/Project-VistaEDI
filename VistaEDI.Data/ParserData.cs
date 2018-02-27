@@ -55,20 +55,15 @@ namespace VistaEDI.Data
 
                 DataTable failList = Execute();
 
-                //string stringList1 = "";
-                //stringList1 = failList.Rows[0][0].ToString();
-
                 ResultViewModel res = new ResultViewModel();
                 res.Message = failList.Rows[0][0].ToString();
                 res.HeatNo = failList.Rows[0][1].ToString();
 
-                //  return stringList1;
                 return res;
                               
             }
             catch (Exception ex)
             {
-                // return "FAIL";
                 ResultViewModel res = new ResultViewModel();
                 res.Message = "FAIL";
                 return res;
