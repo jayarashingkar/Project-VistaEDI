@@ -13,6 +13,7 @@ namespace VistaEDI.Data
     {
         public ResultViewModel SaveItem(ChemistryInfo data, char status)
         {
+
             try
             {
                 StoredProcedureName = "ChemistryInfoInsert_Proc";
@@ -56,9 +57,15 @@ namespace VistaEDI.Data
                 DataTable failList = Execute();
 
                 ResultViewModel res = new ResultViewModel();
-                res.Message = failList.Rows[0][0].ToString();
-                res.HeatNo = failList.Rows[0][1].ToString();
 
+                int j;
+
+                foreach(DataRow row in failList.Rows)
+                {
+                    j = 0;
+                    res.Message = row[j].ToString();j++;
+                    res.HeatNo = row[j].ToString(); 
+                }
                 return res;
                               
             }
@@ -66,6 +73,7 @@ namespace VistaEDI.Data
             {
                 ResultViewModel res = new ResultViewModel();
                 res.Message = "FAIL";
+               // res.Message = ex.ToString();
                 return res;
             }
             
